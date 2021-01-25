@@ -1,0 +1,4 @@
+*.DS_*
+src/RHCamera.h
+src/RHInteractiveObject.*
+src/ofxRHUtilities.h
