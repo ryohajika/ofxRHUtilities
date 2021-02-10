@@ -7,7 +7,6 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxAnimationPrimitives.h"
 #include "ofxOpenCv.h"
 #include "opencv2/features2d.hpp"
 #include "opencv2/flann/flann.hpp"
