@@ -15,6 +15,7 @@
 #include <map>
 #include <string>
 #include <fstream>
+#include <pthread.h>    // only works with POSIX OS
 
 #include "ofLog.h"
 #include "ofFileUtils.h"
@@ -236,6 +237,32 @@ private:
     std::ofstream os;
     std::vector<std::string> * row_header;
 };
+
+// followed https://www.bo-yang.net/2017/11/19/cpp-kill-detached-thread
+// for thread management
+typedef std::unordered_map<std::string, pthread_t> ThreadMap;
+
+// https://stackoverflow.com/questions/9094132/c-stdtransform-vector-of-pairs-first-to-new-vector
+template <typename T1, typename T2>
+void vector_of_pairs_first_to_vector(std::vector<std::pair<T1, T2>> *src,
+                                     std::vector<T1> *dst){
+    std::transform(src->begin(),
+                   src->end(),
+                   std::back_inserter(dst),
+                   [](const std::pair<T1, T2>&p){
+                       return p.first;
+                   });
+}
+template <typename T1, typename T2>
+void vector_of_pairs_second_to_vector(std::vector<std::pair<T1, T2>> *src,
+                                      std::vector<T2> *dst){
+    std::transform(src->begin(),
+                   src->end(),
+                   std::back_inserter(dst),
+                   [](const std::pair<T1, T2>&p){
+                       return p.second;
+                   });
+}
 
 
 //namespace detail {
