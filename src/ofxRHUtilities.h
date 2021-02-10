@@ -14,5 +14,6 @@
 #include "RHUtils.h"
 #include "RHColors.h"
 #include "RHCamera.h"
+#include "RHKineticFont.h"
 
 #endif /* ofxRHUtilities_h */
