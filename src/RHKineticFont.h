@@ -64,7 +64,7 @@ class FontComplex {
         void setup(unsigned channels);
         unsigned getChannels();
         void loadString(unsigned which, vector<ofPath> path, ofRectangle bbox);
-        void update();
+        void update(float elapsed_time_f, uint64_t elapsed_time_macros);
         void draw(unsigned ch);
         
         void setNoiseAmt(float vol);
@@ -121,7 +121,7 @@ class WordsSystem {
         ~WordsSystem();
         
         void setup(std::string font_path, std::string phrase, float interval_ms);
-        ofVec3f update();
+        ofVec3f update(float elapsed_time_f);
         void draw();
         void reset();
     

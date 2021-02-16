@@ -53,7 +53,7 @@ void FontComplex::loadString(unsigned which, vector<ofPath> path, ofRectangle bb
     }
 }
 
-void FontComplex::update(){
+void FontComplex::update(float elapsed_time_f, uint64_t elapsed_time_macros){
     for(int i=0; i<chs; i++){
         data[i].ms.clear();
         for(int j=0; j<data[i].ps.size(); j++){
@@ -64,8 +64,8 @@ void FontComplex::update(){
         }
     }
     if(bNoise){
-        float t = $Context(AppInfo)->elapsed_time_f;
-        uint64_t tt = $Context(AppInfo)->elapsed_time_macros;
+        float t = elapsed_time_f;
+        uint64_t tt = elapsed_time_macros;
 //        // http://www.cplusplus.com/forum/beginner/50659/
 //        bool bool1, bool2, bool3 = true;
         
@@ -229,11 +229,12 @@ void WordsSystem::setup(std::string font_path, std::string phrase, float interva
               64, true, true, true, 0.5f, 72);
 }
 
-ofVec3f WordsSystem::update(){
+ofVec3f WordsSystem::update(float elapsed_time_f){
 //    cout << ofGetElapsedTimef() - bfre << endl;
-    
-    if(bWordAddingPhase && ($Context(AppInfo)->elapsed_time_f - bfre) > itvl){
-        bfre = $Context(AppInfo)->elapsed_time_f;
+    uint64_t elapsed_time_micros = ofGetElapsedTimeMicros();
+	
+    if(bWordAddingPhase && (elapsed_time_f - bfre) > itvl){
+        bfre = elapsed_time_f;
         cpx.push_back(FontComplex());
         cpx.back().setup(1);
         cpx.back().loadString(0,
@@ -263,7 +264,7 @@ ofVec3f WordsSystem::update(){
     }
     if(cpx.size()){
         for(int i=0; i<cpx.size(); i++){
-            cpx[i].update();
+            cpx[i].update(elapsed_time_f, elapsed_time_micros);
             if(!mvt[i].isDead){
                 mvt[i].spot.setGlobalPosition(mvt[i].spot.getGlobalPosition().x + cos(mvt[i].delta * HALF_PI) * mvt[i].amt.x,
                                          mvt[i].spot.getGlobalPosition().y + sin(mvt[i].delta * HALF_PI) * mvt[i].amt.y,
