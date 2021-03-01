@@ -64,8 +64,8 @@ void FontComplex::update(){
         }
     }
     if(bNoise){
-        float t = $Context(AppInfo)->elapsed_time_f;
-        uint64_t tt = $Context(AppInfo)->elapsed_time_macros;
+        float t = ofGetElapsedTimef();
+        uint64_t tt = ofGetElapsedTimeMicros();
 //        // http://www.cplusplus.com/forum/beginner/50659/
 //        bool bool1, bool2, bool3 = true;
         
@@ -230,14 +230,14 @@ void WordsSystem::setup(std::string font_path, std::string phrase, float interva
 }
 
 ofVec3f WordsSystem::update(){
-//    cout << ofGetElapsedTimef() - bfre << endl;
+    float elapsed_time_f = ofGetElapsedTimef();
     
-    if(bWordAddingPhase && ($Context(AppInfo)->elapsed_time_f - bfre) > itvl){
-        bfre = $Context(AppInfo)->elapsed_time_f;
+    if(bWordAddingPhase && (elapsed_time_f - bfre) > itvl){
+        bfre = elapsed_time_f;
         cpx.push_back(FontComplex());
         cpx.back().setup(1);
         cpx.back().loadString(0,
-                              font.getStringAsPoints(words[word_count]),
+                              font.getStringAsPoints(words[word_count], true, false),
                               font.getStringBoundingBox(words[word_count], 0, 0));
         cpx.back().setSimplifyEnable(true);
         cpx.back().setSimplifyRate(1.0);

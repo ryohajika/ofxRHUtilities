@@ -44,7 +44,7 @@ static ofRectangle getBitmapStringBoundingBox(std::string text){
                 currentLineLength++;
             }
         }
-        maxLineLength = MAX(maxLineLength, currentLineLength);
+        maxLineLength = std::max(maxLineLength, currentLineLength);
     }
     
     int padding = 4;
@@ -52,7 +52,7 @@ static ofRectangle getBitmapStringBoundingBox(std::string text){
     float leading = 1.7;
     int height = lines.size() * fontSize * leading - 1;
     int width = maxLineLength * fontSize;
-    return ofRectangle(0,-fontSize-1,width, height);
+    return ofRectangle(0, -fontSize-1, width, height);
 }
 
 // MARK:- FontComplex

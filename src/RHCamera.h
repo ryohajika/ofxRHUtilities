@@ -79,7 +79,7 @@ public:
     }
     
 private:
-    ofxRHUtilities::EasingExpo    tween;
+    ofxRHUtilities::Expo    tween;
     ofNode          myCamGlobalPos;
     ofNode          myCamDestPos;
     ofQuaternion    myCamCurrentLook;
