@@ -64,13 +64,8 @@ void FontComplex::update(float elapsed_time_f, uint64_t elapsed_time_macros){
         }
     }
     if(bNoise){
-<<<<<<< HEAD
-        float t = ofGetElapsedTimef();
-        uint64_t tt = ofGetElapsedTimeMicros();
-=======
         float t = elapsed_time_f;
         uint64_t tt = elapsed_time_macros;
->>>>>>> b6d973e1d9c7770016df181f2d9a5bee29bfb8bd
 //        // http://www.cplusplus.com/forum/beginner/50659/
 //        bool bool1, bool2, bool3 = true;
         
@@ -234,16 +229,10 @@ void WordsSystem::setup(std::string font_path, std::string phrase, float interva
               64, true, true, true, 0.5f, 72);
 }
 
-<<<<<<< HEAD
-ofVec3f WordsSystem::update(){
-    float elapsed_time_f = ofGetElapsedTimef();
-    
-=======
 ofVec3f WordsSystem::update(float elapsed_time_f){
 //    cout << ofGetElapsedTimef() - bfre << endl;
     uint64_t elapsed_time_micros = ofGetElapsedTimeMicros();
 	
->>>>>>> b6d973e1d9c7770016df181f2d9a5bee29bfb8bd
     if(bWordAddingPhase && (elapsed_time_f - bfre) > itvl){
         bfre = elapsed_time_f;
         cpx.push_back(FontComplex());
