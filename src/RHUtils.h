@@ -1,24 +1,15 @@
 //
-//  UtilityThings.h
+//  RHUtils.h
+//  POSIX OS ONLY!!!!! (since this part rely on <pthread>)
+//  chuck in all the static functions and classes quite useful ;)
 //
 //  Created by Ryo Hajika on 2020/09/23.
 //
 
 #pragma once
 
-#include <chrono>
-#include <functional>
-#include <future>
-#include <utility>
-#include <type_traits>
-#include <vector>
-#include <map>
-#include <string>
-#include <fstream>
-#include <pthread.h>    // only works with POSIX OS
-
-#include "ofLog.h"
-#include "ofFileUtils.h"
+#include "ofMain.h"
+#include <pthread.h>
 
 namespace ofxRHUtilities {
 
@@ -242,10 +233,154 @@ private:
 // for thread management
 typedef std::unordered_map<std::string, pthread_t> ThreadMap;
 
+// usually there's no much difference between the keywords
+// "class" and "typename", but there are some exception
+// https://stackoverflow.com/questions/2023977/difference-of-keywords-typename-and-class-in-templates
+// https://stackoverflow.com/questions/22532512/how-to-bind-store-and-execute-a-stdfunction-object
+
+class BackgroundThreadManager {
+    private:
+        ThreadMap tm_;
+        bool _b_verbose;
+        
+    public:
+        BackgroundThreadManager(){
+            _b_verbose = true;
+        }
+        ~BackgroundThreadManager(){
+            if(_b_verbose){
+                ofLogNotice() << __PRETTY_FUNCTION__;
+            }
+            if(tm_.size()){
+                if(_b_verbose){
+                    ofLogNotice() << "ThreadMap has size of: "
+                                  << tm_.size()
+                                  << ", and will be cleaned";
+                }
+                for(auto &t : tm_){
+                    pthread_cancel(t.second);
+                    tm_.erase(t.first);
+                }
+            }
+        }
+        
+        void setVerbose(bool val){
+            _b_verbose = val;
+        }
+        bool getVerbose(){
+            return _b_verbose;
+        }
+        
+        template <typename R>
+        std::thread fireRepeatingThread(const std::string &tname,
+                                        long interval_ms,
+                                        std::function<R()> & func){
+            if(_b_verbose){
+                ofLogNotice() << __PRETTY_FUNCTION__;
+            }
+            std::thread _thread = std::thread([=](){
+                while(1){
+                    std::this_thread::sleep_for(
+                        std::chrono::milliseconds(interval_ms)
+                        );
+                    func();
+                }
+            });
+            tm_[tname] = _thread.native_handle();
+            _thread.detach();
+            return _thread;
+        }
+        
+        template <typename R>
+        std::thread fireThreadWithMS(const std::string &tname,
+                                     long delay_ms,
+                                     std::function<R()> & func){
+            if(_b_verbose){
+                ofLogNotice() << __PRETTY_FUNCTION__;
+            }
+            std::thread _thread = std::thread([=](){
+                std::this_thread::sleep_for(std::chrono::milliseconds(delay_ms));
+                func();
+            });
+            tm_[tname] = _thread.native_handle();
+            _thread.detach();
+            return _thread;
+        }
+        
+        template <typename R>
+        std::thread fireThread(const std::string &tname,
+                               std::function<R()> & func){
+            if(_b_verbose){
+                ofLogNotice() << __PRETTY_FUNCTION__;
+            }
+            std::thread _thread = std::thread([=](){
+                func();
+            });
+            tm_[tname] = _thread.native_handle();
+            _thread.detach();
+            return _thread;
+        }
+        
+        void cancelThread(const std::string & tname){
+            // just a utility function to stop the worker thread
+            // in case if the study is suspended on the half way
+            if(_b_verbose){
+                ofLogNotice() << __PRETTY_FUNCTION__;
+            }
+            ThreadMap::const_iterator it = tm_.find(tname);
+            if(it != tm_.end()){
+                if(_b_verbose){
+                    ofLogNotice() << "Thread \"" << tname << "\" found and is gonna be cancelled";
+                }
+                pthread_cancel(it->second);
+                tm_.erase(tname);
+            }
+        }
+};
+
+//const void cancelBackgroundThread(ThreadMap & tm, const std::string & tname){
+//    // just a utility function to stop the worker thread
+//	// in case if the study is suspended on the half way
+//    ThreadMap::const_iterator it = tm.find(tname);
+//    if(it != tm.end()){
+//        pthread_cancel(it->second);
+//        tm.erase(tname);
+//    }
+//}
+//
+//template <typename R>
+//const std::shared_ptr<std::thread>
+//fireBackgroundThread(ThreadMap & tm,
+//                     const std::string & tname,
+//                     const long delay_time_ms,
+//                     std::function<R()> & func){
+//    std::shared_ptr<std::thread> _thread = std::make_shared<std::thread>([=](){
+//        std::this_thread::sleep_for(std::chrono::milliseconds(delay_time_ms));
+//        func();
+//    });
+//    tm[tname] = _thread->native_handle();
+//    _thread->detach();
+//    return _thread;
+//}
+//template <typename R, class... Args>
+//const std::shared_ptr<std::thread> fireBackgroundThread(ThreadMap & tm,
+//                                                        const std::string & tname,
+//                                                        const long delay_time_ms,
+//                                                        std::function<R(Args...)> func){
+//    std::shared_ptr<std::thread> _thread = std::make_shared<std::thread>([=](){
+//        std::this_thread::sleep_for(
+//            std::chrono::milliseconds(delay_time_ms));
+//        func();
+//    });
+//    tm[tname] = _thread->native_handle();
+//    _thread->detach();
+//    return _thread;
+//}
+
 // https://stackoverflow.com/questions/9094132/c-stdtransform-vector-of-pairs-first-to-new-vector
 template <typename T1, typename T2>
-void vector_of_pairs_first_to_vector(std::vector<std::pair<T1, T2>> *src,
-                                     std::vector<T1> *dst){
+const void vector_of_pairs_first_to_vector(std::vector<std::pair<T1, T2>> *src,
+                                           std::vector<T1> *dst){
     std::transform(src->begin(),
                    src->end(),
                    std::back_inserter(dst),
@@ -253,9 +388,10 @@ void vector_of_pairs_first_to_vector(std::vector<std::pair<T1, T2>> *src,
                        return p.first;
                    });
 }
+
 template <typename T1, typename T2>
-void vector_of_pairs_second_to_vector(std::vector<std::pair<T1, T2>> *src,
-                                      std::vector<T2> *dst){
+const void vector_of_pairs_second_to_vector(std::vector<std::pair<T1, T2>> *src,
+                                            std::vector<T2> *dst){
     std::transform(src->begin(),
                    src->end(),
                    std::back_inserter(dst),
@@ -264,70 +400,20 @@ void vector_of_pairs_second_to_vector(std::vector<std::pair<T1, T2>> *src,
                    });
 }
 
+inline ofJson readJsonFromString(std::string & line){
+    if(line.size()){
+        ofJson _j;
+        _j = operator""_json(line.c_str(), line.size());
+        return _j;
+    }else{
+        return nullptr;
+    }
+}
 
-//namespace detail {
-//    template <class T>
-//    struct is_reference_wrapper : std::false_type {};
-//    template <class U>
-//    struct is_reference_wrapper<std::reference_wrapper<U>> : std::true_type {};
-//
-//    template<class T>
-//    struct invoke_impl {
-//        template<class F, class... Args>
-//        static auto call(F&& f, Args&&... args)
-//        -> decltype(std::forward<F>(f)(std::forward<Args>(args)...));
-//    };
-//
-//    template<class B, class MT>
-//    struct invoke_impl<MT B::*> {
-//        template<class T, class Td = typename std::decay<T>::type,
-//        class = typename std::enable_if<std::is_base_of<B, Td>::value>::type
-//        >
-//        static auto get(T&& t) -> T&&;
-//
-//        template<class T, class Td = typename std::decay<T>::type,
-//        class = typename std::enable_if<is_reference_wrapper<Td>::value>::type
-//        >
-//        static auto get(T&& t) -> decltype(t.get());
-//
-//        template<class T, class Td = typename std::decay<T>::type,
-//        class = typename std::enable_if<!std::is_base_of<B, Td>::value>::type,
-//        class = typename std::enable_if<!is_reference_wrapper<Td>::value>::type
-//        >
-//        static auto get(T&& t) -> decltype(*std::forward<T>(t));
-//
-//        template<class T, class... Args, class MT1,
-//        class = typename std::enable_if<std::is_function<MT1>::value>::type
-//        >
-//        static auto call(MT1 B::*pmf, T&& t, Args&&... args)
-//        -> decltype((invoke_impl::get(std::forward<T>(t)).*pmf)(std::forward<Args>(args)...));
-//
-//        template<class T>
-//        static auto call(MT B::*pmd, T&& t)
-//        -> decltype(invoke_impl::get(std::forward<T>(t)).*pmd);
-//    };
-//
-//    template<class F, class... Args, class Fd = typename std::decay<F>::type>
-//    auto INVOKE(F&& f, Args&&... args)
-//    -> decltype(invoke_impl<Fd>::call(std::forward<F>(f), std::forward<Args>(args)...));
-//
-//} // namespace detail
-//
-//template <class callable, class... arguments>
-//void SimpleTimerCallbacker(unsigned after_ms, bool async, callable&& f, arguments&&... args){
-//    //using a = std::result_of<callable(arguments...)>::type;
-//    using a = decltype(std::result_of<std::declval<callable>(f(args)...)>);
-//    std::function<typename a> task(std::bind(std::forward<callable>(f),
-//                                             std::forward<arguments>(args)...));
-//    if (async){
-//        std::thread([after_ms, task]() {
-//            std::this_thread::sleep_for(std::chrono::milliseconds(after_ms));
-//            task();
-//        }).detach();
-//    }else{
-//        std::this_thread::sleep_for(std::chrono::milliseconds(after_ms));
-//        task();
-//    }
-//}
+inline long long getUnixTimeInMS(){
+    return (long long) std::chrono::duration_cast<std::chrono::milliseconds>(
+                            std::chrono::system_clock::now().time_since_epoch()
+                       ).count();
+}
 
 }; // namespace ofxRHUtilities

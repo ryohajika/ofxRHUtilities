@@ -9,7 +9,9 @@ common:
 	ADDON_DEPENDENCIES = ofxOpenCv
 
 	ADDON_INCLUDES += src
+	ADDON_INCLUDES += libs/easing-functions/src
 
 	ADDON_SOURCES += src
+	ADDON_SOURCES += libs/easing-functions/src
 
 osx:

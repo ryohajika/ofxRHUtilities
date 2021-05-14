@@ -17,7 +17,7 @@ namespace ofxRHUtilities {
 // the original implementation when you use this alongside
 // ofxAnimationPrimitives in your project
 
-static struct Expo
+struct Expo
 {
 	inline static float easeIn(const float t)
 	{
