@@ -61,175 +61,175 @@ public:
         }
     }
     
-    // http://coliru.stacked-crooked.com/a/17de1d94c52f2156
-    template <typename Value, typename... Values>
-    std::string update(Value v, Values... vs){
-        std::ostringstream oss;
-        using expander = std::string[];
-        oss << v;
-        (void) expander{ 0, (oss << "," << vs, void(), "")... };
-        os << oss.str() << "\n";
-        return oss.str();
+//    // http://coliru.stacked-crooked.com/a/17de1d94c52f2156
+//    template <typename Value, typename... Values>
+//    std::string update(Value v, Values... vs){
+//        std::ostringstream oss;
+//        using expander = std::string[];
+//        oss << v;
+//        (void) expander{ 0, (oss << "," << vs, void(), "")... };
+//        os << oss.str() << "\n";
+//        return oss.str();
+//    }
+    template <typename T, typename A0>
+    void update(const A0 & a0){
+        os << a0 << "\n";
     }
-//    template <typename T, typename A0>
-//    void update(const A0 & a0){
-//        os << a0 << "\n";
-//    }
-//    template <typename T, typename A0, typename A1>
-//    void update(const A0 & a0, const A1 & a1){
-//        os << a0 << "," << a1 << "\n";
-//    }
-//    template <typename T, typename A0, typename A1, typename A2>
-//    void update(const A0 & a0, const A1 & a1, const A2 & a2){
-//        os << a0 << "," << a1 << "," << a2 << "\n";
-//    }
-//    template <typename T, typename A0, typename A1, typename A2, typename A3>
-//    void update(const A0 & a0, const A1 & a1, const A2 & a2, const A3 & a3){
-//        os << a0 << "," << a1 << "," << a2 << "," << a3 << "\n";
-//    }
-//    template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4>
-//    void update(const A0 & a0, const A1 & a1, const A2 & a2, const A3 & a3, const A4 & a4){
-//        os << a0 << "," << a1 << "," << a2 << "," << a3 << "," << a4 << "\n";
-//    }
-//    template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5>
-//    void update(const A0 & a0, const A1 & a1, const A2 & a2, const A3 & a3, const A4 & a4, const A5 & a5){
-//        os << a0 << "," << a1 << "," << a2 << "," << a3 << "," << a4 << "," << a5 << "\n";
-//    }
-//    template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5,
-//              typename A6>
-//    void update(const A0 & a0, const A1 & a1, const A2 & a2, const A3 & a3, const A4 & a4, const A5 & a5,
-//                const A6 & a6){
-//        os << a0 << "," << a1 << "," << a2 << "," << a3 << "," << a4 << "," << a5 << "," << a6 << "\n";
-//    }
-//    template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5,
-//              typename A6, typename A7>
-//    void update(const A0 & a0, const A1 & a1, const A2 & a2, const A3 & a3, const A4 & a4, const A5 & a5,
-//                const A6 & a6, const A7 & a7){
-//        os << a0 << "," << a1 << "," << a2 << "," << a3 << "," << a4 << "," << a5 << "," << a6
-//            << "," << a7 << "\n";
-//    }
-//    template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5,
-//              typename A6, typename A7, typename A8>
-//    void update(const A0  a0, const A1  a1, const A2  a2, const A3  a3, const A4  a4, const A5  a5,
-//                const A6  a6, const A7  a7, const A8  a8){
-//        os << a0 << "," << a1 << "," << a2 << "," << a3 << "," << a4 << "," << a5 << "," << a6
-//            << "," << a7 << "," << a8 << "\n";
-//    }
-//    template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5,
-//              typename A6, typename A7, typename A8, typename A9>
-//    void update(const A0 & a0, const A1 & a1, const A2 & a2, const A3 & a3, const A4 & a4, const A5 & a5,
-//                const A6 & a6, const A7 & a7, const A8 & a8, const A9 & a9){
-//        os << a0 << "," << a1 << "," << a2 << "," << a3 << "," << a4 << "," << a5 << "," << a6
-//            << "," << a7 << "," << a8 << "," << a9 << "\n";
-//    }
-//    template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5,
-//              typename A6, typename A7, typename A8, typename A9, typename A10>
-//    void update(const A0 & a0, const A1 & a1, const A2 & a2, const A3 & a3, const A4 & a4, const A5 & a5,
-//                const A6 & a6, const A7 & a7, const A8 & a8, const A9 & a9, const A10 & a10){
-//        os << a0 << "," << a1 << "," << a2 << "," << a3 << "," << a4 << "," << a5 << "," << a6
-//            << "," << a7 << "," << a8 << "," << a9 << "," << a10 << "\n";
-//    }
-//    template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5,
-//              typename A6, typename A7, typename A8, typename A9, typename A10, typename A11>
-//    void update(const A0 & a0, const A1 & a1, const A2 & a2, const A3 & a3, const A4 & a4, const A5 & a5,
-//                const A6 & a6, const A7 & a7, const A8 & a8, const A9 & a9, const A10 & a10, const A11 & a11){
-//        os << a0 << "," << a1 << "," << a2 << "," << a3 << "," << a4 << "," << a5 << "," << a6
-//            << "," << a7 << "," << a8 << "," << a9 << "," << a10 << "," << a11 << "\n";
-//    }
-//    template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5,
-//              typename A6, typename A7, typename A8, typename A9, typename A10, typename A11, typename A12>
-//    void update(const A0 & a0, const A1 & a1, const A2 & a2, const A3 & a3, const A4 & a4, const A5 & a5,
-//                const A6 & a6, const A7 & a7, const A8 & a8, const A9 & a9, const A10 & a10, const A11 & a11,
-//                const A12 & a12){
-//        os << a0 << "," << a1 << "," << a2 << "," << a3 << "," << a4 << "," << a5 << "," << a6
-//            << "," << a7 << "," << a8 << "," << a9 << "," << a10 << "," << a11 << "," << a12 << "\n";
-//    }
-//    template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5,
-//              typename A6, typename A7, typename A8, typename A9, typename A10, typename A11, typename A12,
-//              typename A13>
-//    void update(const A0 & a0, const A1 & a1, const A2 & a2, const A3 & a3, const A4 & a4, const A5 & a5,
-//                const A6 & a6, const A7 & a7, const A8 & a8, const A9 & a9, const A10 & a10, const A11 & a11,
-//                const A12 & a12, const A13 & a13){
-//        os << a0 << "," << a1 << "," << a2 << "," << a3 << "," << a4 << "," << a5 << "," << a6
-//            << "," << a7 << "," << a8 << "," << a9 << "," << a10 << "," << a11 << "," << a12
-//            << "," << a13 << "\n";
-//    }
-//    template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5,
-//              typename A6, typename A7, typename A8, typename A9, typename A10, typename A11, typename A12,
-//              typename A13, typename A14>
-//    void update(const A0 & a0, const A1 & a1, const A2 & a2, const A3 & a3, const A4 & a4, const A5 & a5,
-//                const A6 & a6, const A7 & a7, const A8 & a8, const A9 & a9, const A10 & a10, const A11 & a11,
-//                const A12 & a12, const A13 & a13, const A14 & a14){
-//        os << a0 << "," << a1 << "," << a2 << "," << a3 << "," << a4 << "," << a5 << "," << a6
-//            << "," << a7 << "," << a8 << "," << a9 << "," << a10 << "," << a11 << "," << a12
-//            << "," << a13 << "," << a14 << "\n";
-//    }
-//    template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5,
-//              typename A6, typename A7, typename A8, typename A9, typename A10, typename A11, typename A12,
-//              typename A13, typename A14, typename A15>
-//    void update(const A0 & a0, const A1 & a1, const A2 & a2, const A3 & a3, const A4 & a4, const A5 & a5,
-//                const A6 & a6, const A7 & a7, const A8 & a8, const A9 & a9, const A10 & a10, const A11 & a11,
-//                const A12 & a12, const A13 & a13, const A14 & a14, const A15 & a15){
-//        os << a0 << "," << a1 << "," << a2 << "," << a3 << "," << a4 << "," << a5 << "," << a6
-//            << "," << a7 << "," << a8 << "," << a9 << "," << a10 << "," << a11 << "," << a12
-//            << "," << a13 << "," << a14 << "," << a15 << "\n";
-//    }
-//    template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5,
-//              typename A6, typename A7, typename A8, typename A9, typename A10, typename A11, typename A12,
-//              typename A13, typename A14, typename A15, typename A16>
-//    void update(const A0 & a0, const A1 & a1, const A2 & a2, const A3 & a3, const A4 & a4, const A5 & a5,
-//                const A6 & a6, const A7 & a7, const A8 & a8, const A9 & a9, const A10 & a10, const A11 & a11,
-//                const A12 & a12, const A13 & a13, const A14 & a14, const A15 & a15, const A16 & a16){
-//        os << a0 << "," << a1 << "," << a2 << "," << a3 << "," << a4 << "," << a5 << "," << a6
-//            << "," << a7 << "," << a8 << "," << a9 << "," << a10 << "," << a11 << "," << a12
-//            << "," << a13 << "," << a14 << "," << a15 << "," << a16 << "\n";
-//    }
-//    template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5,
-//              typename A6, typename A7, typename A8, typename A9, typename A10, typename A11, typename A12,
-//              typename A13, typename A14, typename A15, typename A16, typename A17>
-//    void update(const A0 & a0, const A1 & a1, const A2 & a2, const A3 & a3, const A4 & a4, const A5 & a5,
-//                const A6 & a6, const A7 & a7, const A8 & a8, const A9 & a9, const A10 & a10, const A11 & a11,
-//                const A12 & a12, const A13 & a13, const A14 & a14, const A15 & a15, const A16 & a16, const A17 & a17){
-//        os << a0 << "," << a1 << "," << a2 << "," << a3 << "," << a4 << "," << a5 << "," << a6
-//            << "," << a7 << "," << a8 << "," << a9 << "," << a10 << "," << a11 << "," << a12
-//            << "," << a13 << "," << a14 << "," << a15 << "," << a16 << "," << a17 << "\n";
-//    }
-//    template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5,
-//              typename A6, typename A7, typename A8, typename A9, typename A10, typename A11, typename A12,
-//              typename A13, typename A14, typename A15, typename A16, typename A17, typename A18>
-//    void update(const A0 & a0, const A1 & a1, const A2 & a2, const A3 & a3, const A4 & a4, const A5 & a5,
-//                const A6 & a6, const A7 & a7, const A8 & a8, const A9 & a9, const A10 & a10, const A11 & a11,
-//                const A12 & a12, const A13 & a13, const A14 & a14, const A15 & a15, const A16 & a16, const A17 & a17,
-//                const A18 & a18){
-//        os << a0 << "," << a1 << "," << a2 << "," << a3 << "," << a4 << "," << a5 << "," << a6
-//            << "," << a7 << "," << a8 << "," << a9 << "," << a10 << "," << a11 << "," << a12
-//            << "," << a13 << "," << a14 << "," << a15 << "," << a16 << "," << a17 << "," << a18 << "\n";
-//    }
-//    template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5,
-//              typename A6, typename A7, typename A8, typename A9, typename A10, typename A11, typename A12,
-//              typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19>
-//    void update(const A0 & a0, const A1 & a1, const A2 & a2, const A3 & a3, const A4 & a4, const A5 & a5,
-//                const A6 & a6, const A7 & a7, const A8 & a8, const A9 & a9, const A10 & a10, const A11 & a11,
-//                const A12 & a12, const A13 & a13, const A14 & a14, const A15 & a15, const A16 & a16, const A17 & a17,
-//                const A18 & a18, const A19 & a19){
-//        os << a0 << "," << a1 << "," << a2 << "," << a3 << "," << a4 << "," << a5 << "," << a6
-//            << "," << a7 << "," << a8 << "," << a9 << "," << a10 << "," << a11 << "," << a12
-//            << "," << a13 << "," << a14 << "," << a15 << "," << a16 << "," << a17 << "," << a18
-//            << "," << a19 << "\n";
-//    }
-//    template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5,
-//              typename A6, typename A7, typename A8, typename A9, typename A10, typename A11, typename A12,
-//              typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19,
-//              typename A20>
-//    void update(const A0 & a0, const A1 & a1, const A2 & a2, const A3 & a3, const A4 & a4, const A5 & a5,
-//                const A6 & a6, const A7 & a7, const A8 & a8, const A9 & a9, const A10 & a10, const A11 & a11,
-//                const A12 & a12, const A13 & a13, const A14 & a14, const A15 & a15, const A16 & a16, const A17 & a17,
-//                const A18 & a18, const A19 & a19, const A20 & a20){
-//        os << a0 << "," << a1 << "," << a2 << "," << a3 << "," << a4 << "," << a5 << "," << a6
-//            << "," << a7 << "," << a8 << "," << a9 << "," << a10 << "," << a11 << "," << a12
-//            << "," << a13 << "," << a14 << "," << a15 << "," << a16 << "," << a17 << "," << a18
-//            << "," << a19 << "," << a20 << "\n";
-//    }
+    template <typename T, typename A0, typename A1>
+    void update(const A0 & a0, const A1 & a1){
+        os << a0 << "," << a1 << "\n";
+    }
+    template <typename T, typename A0, typename A1, typename A2>
+    void update(const A0 & a0, const A1 & a1, const A2 & a2){
+        os << a0 << "," << a1 << "," << a2 << "\n";
+    }
+    template <typename T, typename A0, typename A1, typename A2, typename A3>
+    void update(const A0 & a0, const A1 & a1, const A2 & a2, const A3 & a3){
+        os << a0 << "," << a1 << "," << a2 << "," << a3 << "\n";
+    }
+    template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4>
+    void update(const A0 & a0, const A1 & a1, const A2 & a2, const A3 & a3, const A4 & a4){
+        os << a0 << "," << a1 << "," << a2 << "," << a3 << "," << a4 << "\n";
+    }
+    template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5>
+    void update(const A0 & a0, const A1 & a1, const A2 & a2, const A3 & a3, const A4 & a4, const A5 & a5){
+        os << a0 << "," << a1 << "," << a2 << "," << a3 << "," << a4 << "," << a5 << "\n";
+    }
+    template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5,
+              typename A6>
+    void update(const A0 & a0, const A1 & a1, const A2 & a2, const A3 & a3, const A4 & a4, const A5 & a5,
+                const A6 & a6){
+        os << a0 << "," << a1 << "," << a2 << "," << a3 << "," << a4 << "," << a5 << "," << a6 << "\n";
+    }
+    template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5,
+              typename A6, typename A7>
+    void update(const A0 & a0, const A1 & a1, const A2 & a2, const A3 & a3, const A4 & a4, const A5 & a5,
+                const A6 & a6, const A7 & a7){
+        os << a0 << "," << a1 << "," << a2 << "," << a3 << "," << a4 << "," << a5 << "," << a6
+            << "," << a7 << "\n";
+    }
+    template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5,
+              typename A6, typename A7, typename A8>
+    void update(const A0  a0, const A1  a1, const A2  a2, const A3  a3, const A4  a4, const A5  a5,
+                const A6  a6, const A7  a7, const A8  a8){
+        os << a0 << "," << a1 << "," << a2 << "," << a3 << "," << a4 << "," << a5 << "," << a6
+            << "," << a7 << "," << a8 << "\n";
+    }
+    template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5,
+              typename A6, typename A7, typename A8, typename A9>
+    void update(const A0 & a0, const A1 & a1, const A2 & a2, const A3 & a3, const A4 & a4, const A5 & a5,
+                const A6 & a6, const A7 & a7, const A8 & a8, const A9 & a9){
+        os << a0 << "," << a1 << "," << a2 << "," << a3 << "," << a4 << "," << a5 << "," << a6
+            << "," << a7 << "," << a8 << "," << a9 << "\n";
+    }
+    template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5,
+              typename A6, typename A7, typename A8, typename A9, typename A10>
+    void update(const A0 & a0, const A1 & a1, const A2 & a2, const A3 & a3, const A4 & a4, const A5 & a5,
+                const A6 & a6, const A7 & a7, const A8 & a8, const A9 & a9, const A10 & a10){
+        os << a0 << "," << a1 << "," << a2 << "," << a3 << "," << a4 << "," << a5 << "," << a6
+            << "," << a7 << "," << a8 << "," << a9 << "," << a10 << "\n";
+    }
+    template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5,
+              typename A6, typename A7, typename A8, typename A9, typename A10, typename A11>
+    void update(const A0 & a0, const A1 & a1, const A2 & a2, const A3 & a3, const A4 & a4, const A5 & a5,
+                const A6 & a6, const A7 & a7, const A8 & a8, const A9 & a9, const A10 & a10, const A11 & a11){
+        os << a0 << "," << a1 << "," << a2 << "," << a3 << "," << a4 << "," << a5 << "," << a6
+            << "," << a7 << "," << a8 << "," << a9 << "," << a10 << "," << a11 << "\n";
+    }
+    template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5,
+              typename A6, typename A7, typename A8, typename A9, typename A10, typename A11, typename A12>
+    void update(const A0 & a0, const A1 & a1, const A2 & a2, const A3 & a3, const A4 & a4, const A5 & a5,
+                const A6 & a6, const A7 & a7, const A8 & a8, const A9 & a9, const A10 & a10, const A11 & a11,
+                const A12 & a12){
+        os << a0 << "," << a1 << "," << a2 << "," << a3 << "," << a4 << "," << a5 << "," << a6
+            << "," << a7 << "," << a8 << "," << a9 << "," << a10 << "," << a11 << "," << a12 << "\n";
+    }
+    template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5,
+              typename A6, typename A7, typename A8, typename A9, typename A10, typename A11, typename A12,
+              typename A13>
+    void update(const A0 & a0, const A1 & a1, const A2 & a2, const A3 & a3, const A4 & a4, const A5 & a5,
+                const A6 & a6, const A7 & a7, const A8 & a8, const A9 & a9, const A10 & a10, const A11 & a11,
+                const A12 & a12, const A13 & a13){
+        os << a0 << "," << a1 << "," << a2 << "," << a3 << "," << a4 << "," << a5 << "," << a6
+            << "," << a7 << "," << a8 << "," << a9 << "," << a10 << "," << a11 << "," << a12
+            << "," << a13 << "\n";
+    }
+    template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5,
+              typename A6, typename A7, typename A8, typename A9, typename A10, typename A11, typename A12,
+              typename A13, typename A14>
+    void update(const A0 & a0, const A1 & a1, const A2 & a2, const A3 & a3, const A4 & a4, const A5 & a5,
+                const A6 & a6, const A7 & a7, const A8 & a8, const A9 & a9, const A10 & a10, const A11 & a11,
+                const A12 & a12, const A13 & a13, const A14 & a14){
+        os << a0 << "," << a1 << "," << a2 << "," << a3 << "," << a4 << "," << a5 << "," << a6
+            << "," << a7 << "," << a8 << "," << a9 << "," << a10 << "," << a11 << "," << a12
+            << "," << a13 << "," << a14 << "\n";
+    }
+    template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5,
+              typename A6, typename A7, typename A8, typename A9, typename A10, typename A11, typename A12,
+              typename A13, typename A14, typename A15>
+    void update(const A0 & a0, const A1 & a1, const A2 & a2, const A3 & a3, const A4 & a4, const A5 & a5,
+                const A6 & a6, const A7 & a7, const A8 & a8, const A9 & a9, const A10 & a10, const A11 & a11,
+                const A12 & a12, const A13 & a13, const A14 & a14, const A15 & a15){
+        os << a0 << "," << a1 << "," << a2 << "," << a3 << "," << a4 << "," << a5 << "," << a6
+            << "," << a7 << "," << a8 << "," << a9 << "," << a10 << "," << a11 << "," << a12
+            << "," << a13 << "," << a14 << "," << a15 << "\n";
+    }
+    template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5,
+              typename A6, typename A7, typename A8, typename A9, typename A10, typename A11, typename A12,
+              typename A13, typename A14, typename A15, typename A16>
+    void update(const A0 & a0, const A1 & a1, const A2 & a2, const A3 & a3, const A4 & a4, const A5 & a5,
+                const A6 & a6, const A7 & a7, const A8 & a8, const A9 & a9, const A10 & a10, const A11 & a11,
+                const A12 & a12, const A13 & a13, const A14 & a14, const A15 & a15, const A16 & a16){
+        os << a0 << "," << a1 << "," << a2 << "," << a3 << "," << a4 << "," << a5 << "," << a6
+            << "," << a7 << "," << a8 << "," << a9 << "," << a10 << "," << a11 << "," << a12
+            << "," << a13 << "," << a14 << "," << a15 << "," << a16 << "\n";
+    }
+    template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5,
+              typename A6, typename A7, typename A8, typename A9, typename A10, typename A11, typename A12,
+              typename A13, typename A14, typename A15, typename A16, typename A17>
+    void update(const A0 & a0, const A1 & a1, const A2 & a2, const A3 & a3, const A4 & a4, const A5 & a5,
+                const A6 & a6, const A7 & a7, const A8 & a8, const A9 & a9, const A10 & a10, const A11 & a11,
+                const A12 & a12, const A13 & a13, const A14 & a14, const A15 & a15, const A16 & a16, const A17 & a17){
+        os << a0 << "," << a1 << "," << a2 << "," << a3 << "," << a4 << "," << a5 << "," << a6
+            << "," << a7 << "," << a8 << "," << a9 << "," << a10 << "," << a11 << "," << a12
+            << "," << a13 << "," << a14 << "," << a15 << "," << a16 << "," << a17 << "\n";
+    }
+    template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5,
+              typename A6, typename A7, typename A8, typename A9, typename A10, typename A11, typename A12,
+              typename A13, typename A14, typename A15, typename A16, typename A17, typename A18>
+    void update(const A0 & a0, const A1 & a1, const A2 & a2, const A3 & a3, const A4 & a4, const A5 & a5,
+                const A6 & a6, const A7 & a7, const A8 & a8, const A9 & a9, const A10 & a10, const A11 & a11,
+                const A12 & a12, const A13 & a13, const A14 & a14, const A15 & a15, const A16 & a16, const A17 & a17,
+                const A18 & a18){
+        os << a0 << "," << a1 << "," << a2 << "," << a3 << "," << a4 << "," << a5 << "," << a6
+            << "," << a7 << "," << a8 << "," << a9 << "," << a10 << "," << a11 << "," << a12
+            << "," << a13 << "," << a14 << "," << a15 << "," << a16 << "," << a17 << "," << a18 << "\n";
+    }
+    template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5,
+              typename A6, typename A7, typename A8, typename A9, typename A10, typename A11, typename A12,
+              typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19>
+    void update(const A0 & a0, const A1 & a1, const A2 & a2, const A3 & a3, const A4 & a4, const A5 & a5,
+                const A6 & a6, const A7 & a7, const A8 & a8, const A9 & a9, const A10 & a10, const A11 & a11,
+                const A12 & a12, const A13 & a13, const A14 & a14, const A15 & a15, const A16 & a16, const A17 & a17,
+                const A18 & a18, const A19 & a19){
+        os << a0 << "," << a1 << "," << a2 << "," << a3 << "," << a4 << "," << a5 << "," << a6
+            << "," << a7 << "," << a8 << "," << a9 << "," << a10 << "," << a11 << "," << a12
+            << "," << a13 << "," << a14 << "," << a15 << "," << a16 << "," << a17 << "," << a18
+            << "," << a19 << "\n";
+    }
+    template <typename T, typename A0, typename A1, typename A2, typename A3, typename A4, typename A5,
+              typename A6, typename A7, typename A8, typename A9, typename A10, typename A11, typename A12,
+              typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19,
+              typename A20>
+    void update(const A0 & a0, const A1 & a1, const A2 & a2, const A3 & a3, const A4 & a4, const A5 & a5,
+                const A6 & a6, const A7 & a7, const A8 & a8, const A9 & a9, const A10 & a10, const A11 & a11,
+                const A12 & a12, const A13 & a13, const A14 & a14, const A15 & a15, const A16 & a16, const A17 & a17,
+                const A18 & a18, const A19 & a19, const A20 & a20){
+        os << a0 << "," << a1 << "," << a2 << "," << a3 << "," << a4 << "," << a5 << "," << a6
+            << "," << a7 << "," << a8 << "," << a9 << "," << a10 << "," << a11 << "," << a12
+            << "," << a13 << "," << a14 << "," << a15 << "," << a16 << "," << a17 << "," << a18
+            << "," << a19 << "," << a20 << "\n";
+    }
     
     void stop(){
         os.close();
