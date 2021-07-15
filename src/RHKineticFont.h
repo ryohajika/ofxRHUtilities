@@ -12,8 +12,108 @@ enum FONT_DRAW_MODE {
     FONT_DRAW_FILL,
     FONT_DRAW_WIREFRAME,
     FONT_DRAW_TRIANGLES,
+    FONT_DRAW_BUBBLY,
     FONT_DRAW_TEXTURE
 };
+
+enum FONT_NOISE_SOURCE {
+    FONT_NOISE_ELAPSEDTIMEF = 0,
+    FONT_NOISE_ELAPSEDTIMEMILLIS,
+    FONT_NOISE_ELAPSEDTIMEMICROS,
+    FONT_NOISE_NOISE,
+    FONT_NOISE_SIGNEDNOISE,
+    FONT_NOISE_RANDOM,
+    FONT_NOISE_VALUE
+};
+
+namespace RHKineticFont {
+/*
+ * Flow:
+ * FontManagementSystem -> init
+ * then add KineticFontBase based objects by addObject
+ */
+
+class KineticFontBase {
+    public:
+        virtual ~KineticFontBase() = 0;
+        
+        virtual void setup() = 0;
+        virtual bool update(float noiseAmt) = 0;
+        virtual void draw() = 0;
+        
+        virtual void setVanishMS(float time) = 0;
+        virtual void setMovingDir(ofVec3f direction) = 0;
+    private:
+        unsigned _font_id;
+};
+
+//class FontManagementSystem {
+//    public:
+//        FontManagementSystem(){
+//
+//        }
+//        ~FontManagementSystem(){
+//
+//        }
+//
+//        void setup(std::vector<ofTrueTypeFontSettings> settings){
+//            for(ofTrueTypeFontSettings& setting : settings){
+//                //this->setup(setting);
+//            }
+//        }
+//        void setup(ofTrueTypeFontSettings settings){
+//
+//        }
+//
+//        void update(float noiseAmt){
+//            for(KineticFontBase& object : _fontObjects){
+//                object.update();
+//            }
+//        }
+//
+//        void draw(){
+//            for(KineticFontBase& object : _fontObjects){
+//                object.draw();
+//            }
+//        }
+//
+//        inline unsigned getRegisteredFontCount(){
+//            return _fonts.size();
+//        }
+//
+//
+//    private:
+//        void addFont(ofTrueTypeFontSettings setting){
+//            _fonts.push_back(std::make_shared<ofTrueTypeFont>(setting));
+//        }
+//
+//        std::vector<std::shared_ptr<ofTrueTypeFont>> _fonts;
+//        std::vector<KineticFontBase> _fontObjects;
+//};
+//
+//class SmokyFont : public KineticFontBase {
+//    public:
+//        SmokyFont(){
+//
+//        }
+//        ~SmokyFont(){
+//
+//        }
+//
+//        void setup(){
+//        }
+//        bool update(float noiseAmt){
+//        }
+//        void draw(){
+//        }
+//
+//        void setVanishMS(float time){
+//        }
+//        void setMovingDir(ofVec3f direction){
+//        }
+//};
+
+};  // namespace RHKineticFont
 
 struct font_complex_t {
     vector<ofPath> ps;
