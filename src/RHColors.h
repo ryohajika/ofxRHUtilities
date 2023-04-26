@@ -39,6 +39,7 @@ class PantoneColorSystem {
         ofFloatColor classic_blue = ofColor(15, 76, 129, 150);      // 2020
         ofFloatColor ultimate_gray = ofColor(147, 149, 151, 150);   // 2021 - 1
         ofFloatColor illuminating = ofColor(245, 223, 77, 150);     // 2021 - 2
+        ofFloatColor very_peri = ofColor(102, 103, 171, 150);       // 2022
 
         PantoneColorSystem(){
             colors.push_back(cerulean);
@@ -65,6 +66,7 @@ class PantoneColorSystem {
             colors.push_back(classic_blue);
             colors.push_back(ultimate_gray);
             colors.push_back(illuminating);
+            colors.push_back(very_peri);
         }
         ~PantoneColorSystem(){
             colors.erase(colors.begin(), colors.end());

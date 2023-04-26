@@ -8,13 +8,14 @@
 #pragma once
 
 #include "ofMain.h"
+#include "easing.h"
 
 namespace ofxRHUtilities {
 
-class GenericObjectBase {
+class ObjectBase {
     public:
-        virtual GenericObjectBase();
-        virtual ~GenericObjectBase();
+        virtual ObjectBase();
+        virtual ~ObjectBase();
         
         virtual void setup() = 0;
         virtual void exit();
@@ -22,7 +23,7 @@ class GenericObjectBase {
         virtual void draw();
 };
 
-class DrawableObjectColorBase {
+class ObjectColorBase {
     public:
         virtual void setContourColor(ofColor color);
         virtual void setContourColor(ofFloatColor color);
@@ -30,7 +31,9 @@ class DrawableObjectColorBase {
         virtual void setContourColor(unsigned grayscale);
         virtual void setContourColor(unsigned r, unsigned g, unsigned b, unsigned a);
         virtual void setContourColor(float r, float g, float b, float a);
+    
         virtual ofColor getContourColor();
+        virtual ofFloatColor getContourColor();
         virtual unsigned getContourColorR();
         virtual unsigned getContourColorG();
         virtual unsigned getContourColorB();
@@ -57,8 +60,8 @@ class DrawableObjectColorBase {
         virtual float getBodyColorAFloat();
 };
 
-class DrawableObjectBase : virtual public GenericObjectBase,
-                           virtual public DrawableObjectColorBase {
+class DrawableObjectBase : virtual public ObjectBase,
+                           virtual public ObjectColorBase {
     public:
         virtual ~DrawableObjectBase();
         

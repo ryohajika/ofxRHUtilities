@@ -7,33 +7,9 @@
 #pragma once
 
 #include "ofEasyCam.h"
+#include "easing.h"
 
 namespace ofxRHUtilities {
-
-
-// From ofxAnimationPrimitives by Satoru Higa
-// https://github.com/satoruhiga/ofxAnimationPrimitives
-// I putted "static" in order to avoid the confusion with
-// the original implementation when you use this alongside
-// ofxAnimationPrimitives in your project
-
-struct Expo
-{
-	inline static float easeIn(const float t)
-	{
-		return powf(2, 10 * (t - 1));
-	}
-	
-	inline static float easeOut(const float t)
-	{
-		return 1.0 - powf(2, -10 * t);
-	}
-	
-	inline static float easeInOut(const float t)
-	{
-		return (t < 0.5) ? easeIn(t * 2.0) * 0.5 : 1 - easeIn(2.0 - t * 2.0) * 0.5;
-	}
-};
 
 // MARK:- EasingCamera
 class EasingCamera : public ofEasyCam{
@@ -53,14 +29,14 @@ public:
             tweenVal += updateVal;
         }
         
-        setGlobalPosition(ofMap(tween.easeOut(tweenVal), 0.0, 1.0,
+        setGlobalPosition(ofMap(easeOutExpo(tweenVal), 0.0, 1.0,
                                 myCamGlobalPos.getGlobalPosition().x, myCamDestPos.getGlobalPosition().x),
-                          ofMap(tween.easeOut(tweenVal), 0.0, 1.0,
+                          ofMap(easeOutExpo(tweenVal), 0.0, 1.0,
                                 myCamGlobalPos.getGlobalPosition().y, myCamDestPos.getGlobalPosition().y),
-                          ofMap(tween.easeOut(tweenVal), 0.0, 1.0,
+                          ofMap(easeOutExpo(tweenVal), 0.0, 1.0,
                                 myCamGlobalPos.getGlobalPosition().z, myCamDestPos.getGlobalPosition().z));
 
-        myCamCurrentLook.slerp(tween.easeOut(tweenVal),
+        myCamCurrentLook.slerp(easeOutExpo(tweenVal),
                                myCamGlobalPos.getGlobalOrientation(),
                                myCamDestPos.getGlobalOrientation());
 
@@ -79,7 +55,6 @@ public:
     }
     
 private:
-    ofxRHUtilities::Expo    tween;
     ofNode          myCamGlobalPos;
     ofNode          myCamDestPos;
     ofQuaternion    myCamCurrentLook;
