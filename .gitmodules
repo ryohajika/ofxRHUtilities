@@ -7,3 +7,12 @@
 [submodule "CDT"]
 	path = libs/CDT
 	url = https://github.com/artem-ogre/CDT
+[submodule "libs/CDT"]
+	path = libs/CDT
+	url = https://github.com/artem-ogre/CDT
+[submodule "libs/MemorySentinel"]
+	path = libs/MemorySentinel
+	url = https://github.com/Sidelobe/MemorySentinel
+[submodule "libs/choc"]
+	path = libs/choc
+	url = https://github.com/Tracktion/choc
