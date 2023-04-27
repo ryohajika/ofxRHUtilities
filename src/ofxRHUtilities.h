@@ -10,10 +10,10 @@
 #ifndef ofxRHUtilities_h
 #define ofxRHUtilities_h
 
-#include "RHInteractiveObject.h"
+//#include "RHInteractiveObject.h"
 #include "RHUtils.h"
 #include "RHColors.h"
 #include "RHCamera.h"
-#include "RHKineticFont.h"
+//#include "RHKineticFont.h"
 
 #endif /* ofxRHUtilities_h */
